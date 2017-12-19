@@ -60,27 +60,27 @@ class Config:
     def __init__(self, cmdArgs):
 
         # Fetch the Syncrosim specific External Transformer Environmental Variables
-        # SSIM_BASE_DIRECTORY       - The location of the entry assembly. Ex: D:\\SVNProjects\\SyncroSim-1\\WinForm\\bin\\x86\\Debug
-        # SSIM_CONNECTION_STRING    - The connection string for the Transformer's Library. Ex: D:\\ApexRMS\\Raster Simulator A131\\Sample Landfire Data\\ST-Sim-Spatial-Sample-V2-4-6.ssim
+        # SSIM_PROGRAM_DIRECTORY       - The location of the entry assembly. Ex: D:\\SVNProjects\\SyncroSim-1\\WinForm\\bin\\x86\\Debug
+        # SSIM_LIBRARY_FILEPATH    - The connection string for the Transformer's Library. Ex: D:\\ApexRMS\\Raster Simulator A131\\Sample Landfire Data\\ST-Sim-Spatial-Sample-V2-4-6.ssim
         # SSIM_PROJECT_ID           - The Project ID for the Transformer's Result Scenario
         # SSIM_SCENARIO_ID          - The Scenario ID for the Transformer's Result Scenario
         # SSIM_INPUT_DIRECTORY      - The external file input directory for the Transformer's Result Scenario
         # SSIM_OUTPUT_DIRECTORY     - The external file output directory for the Transformer's Result Scenario
         # SSIM_TEMP_DIRECTORY       - The temporary directory for the Transformer's Result Scenario
-        # SSIM_DATA_DIRECTORY       - The data directory for the Transformer's Result Scenario. Ex: D:\\ApexRMS\\Raster Simulator A131\\Sample Landfire Data\\ST-Sim-Spatial-Sample-V2-4-6.ssim.temp\\ExternalProgramData'
+        # SSIM_TRANSFER_DIRECTORY       - The data directory for the Transformer's Result Scenario. Ex: D:\\ApexRMS\\Raster Simulator A131\\Sample Landfire Data\\ST-Sim-Spatial-Sample-V2-4-6.ssim.temp\\ExternalProgramData'
         # SSIM_STOCHASTIC_TIME_BEFORE_ITERATION - current iteration
         # SSIM_STOCHASTIC_TIME_BEFORE_TIMESTEP - current timestep
 
 
-        self.library = os.environ["SSIM_CONNECTION_STRING"]
+        self.library = os.environ["SSIM_LIBRARY_FILEPATH"]
 
         self.projectId = int(os.environ["SSIM_PROJECT_ID"])
 
         self.scenarioId = int(os.environ["SSIM_SCENARIO_ID"])
 
-        self.base_dir = os.environ["SSIM_BASE_DIRECTORY"]
+        self.base_dir = os.environ["SSIM_PROGRAM_DIRECTORY"]
 
-        self.data_dir = os.environ["SSIM_DATA_DIRECTORY"]
+        self.data_dir = os.environ["SSIM_TRANSFER_DIRECTORY"]
 
         self.input_dir =os.environ["SSIM_INPUT_DIRECTORY"]
 
