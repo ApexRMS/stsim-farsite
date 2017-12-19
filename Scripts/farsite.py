@@ -48,12 +48,15 @@ def main(argv):
         if not os.path.exists(config.data_dir):
             os.makedirs(config.data_dir)
 
+        # DEVNOTE: Although old-school naming convention, this is internal to this "module", so we can still use
+        # it.
         file_prefix = 'It{0:04d}-Ts{1:04d}-'.format(config.iteration,config.timestep)
 
-        spatialOutputDir = config.getScenarioSpatialOutputPath()
+        stateAttrSpatialOutputDir = os.path.join(config.getScenarioOutputPath(),
+                                                 cc.DATASHEET_OUTPUT_SPATIAL_STATE_ATTR)
 
         # Create a subdirectory in output just for Farsite files.
-        farsiteOutputDir = os.path.join(spatialOutputDir, 'Farsite')
+        farsiteOutputDir = os.path.join(config.getScenarioOutputPath(), 'STSim_OutputSpatialFarsite')
         if not os.path.exists(farsiteOutputDir):
             os.makedirs(farsiteOutputDir)
 
@@ -98,8 +101,17 @@ def main(argv):
                 # a. - fuel model (integer id - see http://www.fs.fed.us/rm/pubs/rmrs_gtr153.pdf)
 
                 # Figure out the name of the SA Raster file output by Syncrosim at the end of previous timestep
-                sa_fuel_model_filename = 'It{0:04d}-Ts{1:04d}-sa-{2}.tif'.format(config.iteration, config.timestep-1, config.sa_fuel_model_id)
-                sa_fuel_model_filename = os.path.join(spatialOutputDir, sa_fuel_model_filename)
+                sa_fuel_model_filename = config.db.getOutputSpatialRaster(config.scenarioId,
+                                                                          cc.DATASHEET_OUTPUT_SPATIAL_STATE_ATTR,
+                                                                          config.iteration, config.timestep - 1, config.sa_fuel_model_name,
+                                                 'StateAttributeTypeID')
+
+                if sa_fuel_model_filename ==None:
+                    logging.error(
+                        'The expected Fuel Model State Attribute raster file cannot be found in Output Spatial datasheet.')
+                    sys.exit(1)
+
+                sa_fuel_model_filename = os.path.join(stateAttrSpatialOutputDir, sa_fuel_model_filename)
                 if not os.path.exists(sa_fuel_model_filename):
                     logging.error('The expected Fuel Model State Attribute raster file "{0}" can not be found.'.format(sa_fuel_model_filename))
                     sys.exit(1)
@@ -107,8 +119,17 @@ def main(argv):
                 # Canopy cover class (integer id - 1: 1-20%, 2: 21-50%, 3: 50-80%, and 4: 81-100%)
                 if config.sa_canopy_cover_id:
                     # Figure out the name of the SA Raster file output by Syncrosim  at the end of previous timestep
-                    sa_canopy_cover_filename = 'It{0:04d}-Ts{1:04d}-sa-{2}.tif'.format(config.iteration, config.timestep-1, config.sa_canopy_cover_id)
-                    sa_canopy_cover_filename = os.path.join(spatialOutputDir, sa_canopy_cover_filename)
+                    sa_canopy_cover_filename = config.db.getOutputSpatialRaster(config.scenarioId,
+                                                                                cc.DATASHEET_OUTPUT_SPATIAL_STATE_ATTR,
+                                                                                config.iteration, config.timestep - 1,
+                                                                                config.sa_canopy_cover_name,
+                                                                              'StateAttributeTypeID')
+                    if sa_canopy_cover_filename ==None:
+                        logging.error(
+                            'The expected Canopy Cover State Attribute raster file cannot be found in Output Spatial datasheet.')
+                        sys.exit(1)
+
+                    sa_canopy_cover_filename = os.path.join(stateAttrSpatialOutputDir, sa_canopy_cover_filename)
                     if not os.path.exists(sa_canopy_cover_filename):
                         logging.error(
                             'The expected Canopy Cover State Attribute raster file "{0}" can not be found.'.format(sa_canopy_cover_filename))

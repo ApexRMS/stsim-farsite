@@ -249,6 +249,34 @@ class SynrosimDB:
         return self.getDataSheetVal(projectId, sheet, 'Name', saName, pk_name)
 
 
+    def getOutputSpatialRaster(self, scenarioId, dsName, iteration, timestep, id, pkName):
+        '''
+            Get the raster name from the specified Output Spatial datasheet
+
+            :param scenarioId: The scenario of interest
+            :param dsName : The name of the datasheet we're extracting the raster from
+            :param iteration: The iteration of interest
+            :param timestep: The timestep of interest
+            :param id: The ID value of interest. Can typically be the lookup value. ie 'Invaded Cover' instead of 156.
+            :param pkName: The name of the PK value column ( ie 'StateAttributeTypeID")
+        '''
+
+        rows = self.getScenarioDataSheet(dsName, scenarioId)
+        if rows == None or len(rows) == 0:
+            logging.error('Could not find entries for Datasheet {1} for Scenario {0}'.format(
+                scenarioId,dsName))
+            return None
+
+        #     Now we need to loop thru the datasheet contents looking for appropriate iteration, timesteps, id
+        for row in rows:
+            print row
+            if row['Iteration'] == str(iteration) and row['Timestep']== str(timestep) and row[pkName]== str(id):
+                return row['Filename']
+
+        else:
+            return None
+
+
     def getTransitionAttributes(self, projectId):
         '''
             Get a list of Transition Attributes for the specified project

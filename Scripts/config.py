@@ -8,6 +8,7 @@ DATASHEET_FARSITE_OPTIONS_NAME = 'Farsite_Options'
 DATASHEET_RUN_CONTROL_NAME = 'STSim_RunControl'
 DATASHEET_OUTPUT_OPTIONS_NAME = 'STSim_OutputOptions'
 DATASHEET_SSIM_PROCESSING = 'SSim_Processing'
+DATASHEET_OUTPUT_SPATIAL_STATE_ATTR = 'STSim_OutputSpatialStateAttribute'
 
 # Farsite Options
 OPTION_ENABLED = 'Enabled'
@@ -154,7 +155,7 @@ class Config:
         self.transition_multiplier_type_name = options[OPTION_TRANSITION_MULTIPLIER_TYPE]
         self.transition_multiper_type_id = int(self.db.getTransitionMultiplierTypeId(self.projectId, self.transition_multiplier_type_name))
 
-        inputFSOPath = self.getScenarioDatasheetInputPath('Farsite_Options')
+        inputFSOPath = self.getScenarioDatasheetInputPath(DATASHEET_FARSITE_OPTIONS_NAME)
         self.elevation_raster_file =  os.path.join(inputFSOPath,options[OPTION_ELEVATION_RASTER_FILE])
 
         self.slope_raster_file = os.path.join(inputFSOPath,options[OPTION_SLOPE_RASTER_FILE])
@@ -222,7 +223,8 @@ class Config:
             logging.warning("State Attribute Spatial Output Timesteps is not set.")
             sys.exit(1)
 
-        # Get the IC Primary Stratum file name. We will use this for our definitive Raster (row,cols, cell_size, extent..
+        # Get the IC Primary Stratum file name. We will use this for our definitive Raster (row,cols, cell_size,
+        # extent...)
         dsICS = self.db.getScenarioDataSheet('STSim_InitialConditionsSpatial',self.scenarioId)
         if dsICS == None or len(dsICS) == 0:
             logging.error('Could not find Initial Conditions Spatial for Scenario {0}'.format(self.scenarioId))
@@ -275,9 +277,6 @@ class Config:
       if var is None:
         return val
       return var
-
-    def getScenarioSpatialOutputPath(self):
-        return os.path.join(self.getScenarioOutputPath(), "Spatial")
 
     def getScenarioInitConditionalSpatialInputPath(self):
         return os.path.join(self.getScenarioInputPath(), "STSim_InitialConditionsSpatial")
