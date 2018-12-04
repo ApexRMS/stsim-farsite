@@ -393,7 +393,7 @@ class SynrosimDB:
 
 
     def getFolders(self):
-        sheet = 'SSim_Files'
+        sheet = 'SSim_SysFolder'
         return self.getLibDataSheet(sheet)
 
 
