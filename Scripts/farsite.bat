@@ -3,7 +3,7 @@ if "%SSIM_FARSITE_MODULE_BATCH_FILE_LOCATION%" == "" (
 	exit /b -1
 )
 call "%SSIM_FARSITE_MODULE_BATCH_FILE_LOCATION%\o4w_env.bat"
-cd /d %~dp0
+pushd "%~dp0"
 StartProcess --name=python.exe --no-error-box --args="farsite.py" >> "farsite.bat.log" 2>&1
 if %ERRORLEVEL% == -1073741819 (
 	exit /b 0
