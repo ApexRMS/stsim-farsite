@@ -8,8 +8,8 @@ Imports System.Runtime.InteropServices
 
 ' Review the values of the assembly attributes
 
-<Assembly: AssemblyTitle("SyncroSim.STSimFarsite")> 
-<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyTitle("SyncroSim.STSimFarsite")>
+<Assembly: AssemblyDescription("STSim FARSITE Package")>
 <Assembly: AssemblyCompany("")> 
 <Assembly: AssemblyProduct("SyncroSim.STSimFarsite")> 
 <Assembly: AssemblyCopyright("Copyright ©  2017")> 

@@ -1,5 +1,5 @@
 ﻿'*********************************************************************************************
-' FarSite Module: A FarSite Add-On Module for ST-Sim
+' FarSite Module: A FarSite Add-On Package for ST-Sim
 '
 ' Copyright © 2009-2017 ApexRMS.
 '
