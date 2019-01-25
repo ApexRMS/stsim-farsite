@@ -1,2 +1,2 @@
 # stsim-farsite
-A SyncroSim Package for the ST-Sim FARSITE Extensions Add-On.
+SyncroSim Add-On Package (to stsim) for using the FARSITE fire model with ST-Sim.
